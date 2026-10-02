@@ -11,8 +11,8 @@
   radial-gradient(circle at 80% 100%,#29060644,#0000 45%)}
 #tv{
   position:relative;
-  width:min(100vw,177.78vh);   /* largeur = 16:9 calculé depuis la hauteur */
-  height:min(56.25vw,100vh);   /* hauteur = 9:16 calculé depuis la largeur */
+  width:100vw;
+  height:100dvh;
   background:#000;
   container-type:size;         /* active les unités cqw/cqh pour les enfants */
   overflow:hidden;
@@ -26,7 +26,7 @@
 
 /* Le bezel métal « PORTFOLIO » par-dessus tout */
 #cadre-tv{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none;z-index:60;
-  filter:drop-shadow(0 1.4cqh 2.4cqh #000c) contrast(1.04) saturate(1.04)}
+  display:block;filter:drop-shadow(0 1.4cqh 2.4cqh #000c) contrast(1.04) saturate(1.04)}
 
 /* ===== FOND cathédrale : défile à l'infini + scintille (bougies) ===== */
 #fond{
@@ -95,7 +95,6 @@
 
 /* ===== Accessibilité / mobile ===== */
 @media (max-aspect-ratio:9/16){
-  #tv{width:100dvw;height:100dvh}
   .screen{inset:5.2cqh 4.4cqw 7.2cqh 4.4cqw}
   .boot-logo{width:min(82%,760px)}
   .press-start{font-size:4.9cqw;gap:2cqw}
