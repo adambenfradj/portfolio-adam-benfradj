@@ -1,0 +1,52 @@
+/* =================================================================
+   navigation.css — Composant « LOGICIELS » : interface XMB (style PSP)
+   Fond vidéo de vagues + rangée d'icônes + nom du logiciel sélectionné.
+   ================================================================= */
+
+/* Conteneur plein écran, apparaît en fondu en fin de parcours */
+#logiciels{position:absolute;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,#0d0d0f 0%,#020204 72%,#000 100%);
+  opacity:0;pointer-events:none;transition:opacity .55s}
+#logiciels.on{opacity:1;pointer-events:auto}
+
+/* Fond vidéo (vagues PSP). */
+#waves{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#logiciels::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 50% 35%,#ffffff10,#0000 45%),
+  linear-gradient(#0000 24%,#0008 100%)}
+
+/* Bloc XMB centré */
+.xmb{position:relative;z-index:2;width:84%;display:flex;flex-direction:column;align-items:center;gap:3cqh}
+
+/* Rangée d'icônes */
+.xmb-row{display:flex;align-items:center;justify-content:center;gap:2.8cqw;width:100%}
+.xmb-ico{
+  width:8.2cqw;padding:0;border:none;border-radius:0;background:none;
+  opacity:.76;transform:scale(.92);
+  transition:transform .2s,opacity .2s,filter .2s;
+}
+.xmb-ico img{width:100%;height:auto;display:block}
+.xmb-ico:hover,.xmb-ico:focus-visible{
+  opacity:1;transform:scale(1.14);
+  filter:drop-shadow(0 0 1.2cqh #9ad2ff99) drop-shadow(0 0 .5cqh #ffffff70);
+}
+/* L'icône sélectionnée grossit et s'illumine (sans contour). */
+.xmb-ico.on{opacity:1;transform:scale(1.28);
+  filter:drop-shadow(0 0 1.4cqh #b7ddffcc) drop-shadow(0 0 .8cqh #ffffff66)}
+
+/* Ligne du nom du logiciel sélectionné (avec le petit onglet) */
+.xmb-sel{display:flex;align-items:center;gap:1.2cqw;width:70%}
+#xmbName{font-family:var(--sys);font-size:2.6cqw;letter-spacing:2px;color:#fff;
+  text-shadow:0 2px 6px #000;white-space:nowrap;line-height:1.1}
+.xmb-line{flex:1;height:2px;background:linear-gradient(90deg,#ffffffcc,transparent)}
+.xmb-memory{width:4.2cqw;height:auto;flex:0 0 auto;filter:drop-shadow(0 0 .6cqh #c3dcff8a)}
+
+@media (max-aspect-ratio:9/16){
+  .xmb{width:92%;gap:2.4cqh}
+  .xmb-row{gap:2.2cqw;flex-wrap:wrap}
+  .xmb-ico{width:14.8cqw;padding:0}
+  .xmb-ico.on{transform:scale(1.17)}
+  .xmb-sel{width:92%}
+  .xmb-memory{width:7.6cqw}
+  #xmbName{font-size:4.2cqw;letter-spacing:1.2px}
+}

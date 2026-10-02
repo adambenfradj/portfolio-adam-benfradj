@@ -1,0 +1,56 @@
+/* =================================================================
+   carte-projet.css — Composant « TV-projet » (une TV = un projet)
+   + le personnage de CONTACT (le lapin).
+   ================================================================= */
+
+/* ===== Une TV-projet ===== */
+/* Positionnée le long de la rue. Hauteur FIXE -> toutes les TV à la
+   même taille et au même niveau, peu importe la longueur du titre. */
+.tv-projet{position:absolute;bottom:22cqh;cursor:pointer;transition:transform .18s}
+.tv-projet{transform-origin:center bottom}
+.tv-projet:hover{transform:scale(1.04)}
+
+/* La boîte qui contient la TV (sa largeur s'ajuste à l'image) */
+.tv-projet .tv-box{position:relative;height:22cqh;display:block}
+.tv-projet--run-rabbit .tv-box{transform:translateY(2.7cqh)}
+/* L'image de la TV est AU-DESSUS (z2) ; son écran est percé (transparent) */
+.tv-projet .tv-box>img{position:relative;z-index:2;height:100%;width:auto;display:block;
+  filter:drop-shadow(0 1cqh 1cqh #000a)}
+
+/* Le titre est AU-DESSUS de la TV (bottom:100%) -> le personnage qui
+   défile ne « marche » jamais dessus. */
+.tv-projet .tag{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:.8cqh;
+  white-space:nowrap;letter-spacing:.3cqw;font-size:2.2cqw;color:var(--os);text-shadow:.2cqw .2cqw 0 var(--rouge)}
+.tv-projet:hover .tag{color:var(--rouge-clair)}
+
+/* ===== L'écran de la TV : GRÉSILLEMENT, placé DERRIÈRE l'image (z1) =====
+   Il passe par le trou percé dans la TV ; le cadre de la TV (z2) le rogne
+   exactement à la forme de l'écran -> aucun débordement. */
+.tv-screen{position:absolute;z-index:1;overflow:hidden;background:#0a0a0a}
+.tv-screen .static{position:absolute;inset:0;opacity:.82;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size:150% 150%;animation:tvnoise .1s steps(2) infinite}
+.tv-screen .crt{position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,#0000 0 2px,#0008 2px 3px);animation:tvflick 2.6s steps(1) infinite}
+.tv-screen .sweep{position:absolute;left:0;right:0;height:34%;top:-34%;pointer-events:none;
+  background:linear-gradient(#fff0,#ffffff22,#fff0);animation:tvsweep 3.8s linear infinite}
+@keyframes tvnoise{0%{background-position:0 0}25%{background-position:-25% 12%}
+  50%{background-position:18% -18%}75%{background-position:-12% 22%}100%{background-position:8% 6%}}
+@keyframes tvflick{0%,95%{opacity:.5}96%{opacity:.18}98%{opacity:.72}100%{opacity:.5}}
+@keyframes tvsweep{0%{top:-34%}100%{top:110%}}
+
+/* ===== Personnage de CONTACT (le lapin) =====
+   Même HAUTEUR que le squelette. Il sort / range son flyer selon la
+   distance (géré en JS). */
+#contact-perso{position:absolute;bottom:16cqh;height:27cqh;cursor:pointer;z-index:25}
+#contact-perso img{height:100%;width:auto;display:block;filter:drop-shadow(0 1cqh .8cqh #0009);transform:scaleX(-1)}
+#contact-perso:hover{filter:brightness(1.1)}
+#contact-perso .tag{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:1cqh;
+  white-space:nowrap;letter-spacing:.3cqw;font-size:2.2cqw;color:var(--os);text-shadow:.2cqw .2cqw 0 var(--rouge)}
+
+@media (max-aspect-ratio:9/16){
+  .tv-projet{bottom:21cqh}
+  .tv-projet .tv-box{height:20cqh}
+  .tv-projet--run-rabbit .tv-box{transform:translateY(2.1cqh)}
+  .tv-projet:hover{transform:none}
+}

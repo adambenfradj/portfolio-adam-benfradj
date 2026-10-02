@@ -1,0 +1,14 @@
+/* =================================================================
+   variables.css — Les TOKENS du design (couleurs, polices)
+   On centralise ici tout ce qui est réutilisé partout, pour pouvoir
+   changer la direction artistique à un seul endroit.
+   ================================================================= */
+:root{
+  /* Palette rouge / noir / os (la DA du portfolio) */
+  --rouge:#e10600;        /* rouge signature          */
+  --rouge-clair:#ff2318;  /* rouge survol / actif     */
+  --os:#e8e2d0;           /* blanc cassé (texte)      */
+
+  /* Police d'interface rétro (CRT / terminal) */
+  --sys:'Courier New', monospace;
+}
