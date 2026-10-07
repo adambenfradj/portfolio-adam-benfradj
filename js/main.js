@@ -26,10 +26,14 @@ const persoImg = document.getElementById("perso-img");
 /* =================================================================
    1) ANIMATION DU SQUELETTE (image par image, selon la vitesse de scroll)
    ================================================================= */
-let frame = 0, lastStep = 0;
-function animerPerso(vitesse){
+let frame = 0, lastStep = 0, lastDirection = 1;
+function animerPerso(vitesse, direction){
   const now = performance.now();
   const intervalle = Math.max(55, 180 - vitesse*140);  // + on va vite, + il pousse vite
+
+  if (direction !== 0) lastDirection = direction;
+  persoImg.style.transform = `scaleX(${lastDirection < 0 ? -1 : 1})`;
+
   if (vitesse > 0.0015 && now - lastStep > intervalle){
     frame = (frame + 1) % FRAMES.length;
     persoImg.src = FRAMES[frame];
@@ -98,15 +102,24 @@ let contactFrameActuelle = -1;
 function animerContact(){
   if (!contactEl || !contactImg) return;
   const tvW = tvBox.clientWidth;
-  // position du centre du contact à l'écran (en px)
+  const persoX = tvW * 0.15 + persoImg.offsetWidth * 0.5;
   const centreContact = (contactLeft/100)*tvW - camX + contactEl.offsetWidth/2;
-  const d = centreContact - tvW*0.5;    // écart au centre de l'écran
-  const R = tvW*0.45;                    // portée de l'animation
-  let idx;
-  if (d >= 0) idx = (1 - Math.min(d/R,1)) * 3.5;        // il s'approche → sort le flyer
-  else        idx = 3.5 + Math.min(-d/R,1) * 3.5;       // il s'éloigne → range le flyer
-  idx = Math.max(0, Math.min(7, Math.round(idx)));
-  if (idx !== contactFrameActuelle){                    // on ne change l'image que si besoin
+  const ecartJoueur = persoX - centreContact;     // >0 : le joueur est à droite du contact
+  const margeApproche = tvW * 0.16;              // zone où il garde le flyer visible
+  const margeSortie = tvW * 0.07;                 // lorsqu'il est passé, il range enfin
+
+  // Le contact regarde toujours vers la position du joueur.
+  const regardeVersJoueur = persoX < centreContact ? -1 : 1;
+  contactImg.style.transform = `scaleX(${regardeVersJoueur})`;
+
+  // Il tient le flyer tant qu'il est dans la zone d'approche / de passage,
+  // et ne le range qu'une fois qu'il est clairement derrière lui.
+  let idx = 1;
+  if (ecartJoueur > -margeApproche) idx = 4;
+  if (ecartJoueur > margeSortie) idx = 7;
+
+  idx = Math.max(0, Math.min(7, idx));
+  if (idx !== contactFrameActuelle){
     contactFrameActuelle = idx;
     contactImg.src = CONTACT_FRAMES[idx];
   }
@@ -116,15 +129,25 @@ function animerContact(){
    4) SCROLL / CAMÉRA (boucle d'animation)
    ================================================================= */
 let cible = 0, camX = 0, vitesse = 0, logOn = false;
+let cueFaded = false;
 const largeurTV = () => tvBox.clientWidth || window.innerWidth;
 const MAX = () => largeurTV() * ((contactLeft + 95)/100);  // longueur du monde
 
+function cacherCue(){
+  if (cueFaded || monde.hidden) return;
+  cueFaded = true;
+  cue.classList.add("off");
+  dialogue.classList.remove("on");
+}
+
 // La molette et le tactile font avancer dans le monde
 addEventListener("wheel", e => { if (monde.hidden) return;
+  cacherCue();
   cible = Math.min(Math.max(cible + e.deltaY, 0), MAX()); }, { passive:true });
 let ty = 0;
 addEventListener("touchstart", e => { ty = e.touches[0].clientY; }, { passive:true });
 addEventListener("touchmove", e => { if (monde.hidden) return;
+  cacherCue();
   const dy = ty - e.touches[0].clientY; ty = e.touches[0].clientY;
   cible = Math.min(Math.max(cible + dy*2.4, 0), MAX()); }, { passive:true });
 
@@ -139,7 +162,7 @@ function boucle(){
   const p = camX / MAX();
   prog.style.width = (p*100) + "%";
   dialogue.classList.toggle("on", p < 0.10);
-  cue.classList.toggle("off", p > 0.08);
+  if (!cueFaded) cue.classList.toggle("off", p > 0.08);
 
   // Révélation de la section logiciels en fin de parcours
   const veutLog = p > 0.9;
@@ -150,7 +173,8 @@ function boucle(){
     if (logOn) waves.play().catch(()=>{}); else waves.pause();
   }
 
-  animerPerso(vitesse);
+  const direction = Math.sign(camX - avant) || lastDirection;
+  animerPerso(vitesse, direction);
   animerContact();
   requestAnimationFrame(boucle);
 }
@@ -163,13 +187,27 @@ function taper(){
   if (taped) return; taped = true;
   const mots = DIALOGUE_TXT.split(" ");
   dtext.innerHTML = ""; dialogue.classList.add("typing");
-  mots.forEach((m, i) => {
+  dialogue.style.setProperty("--typing-progress", "0%");
+
+  let i = 0;
+  function afficherMotSuivant(){
+    const mot = mots[i];
     const s = document.createElement("span");
-    s.className = "w"; s.textContent = m + (i < mots.length-1 ? " " : "");
-    s.style.animationDelay = (i*0.13) + "s";
+    s.className = "w";
+    s.textContent = mot + (i < mots.length - 1 ? " " : "");
     dtext.appendChild(s);
-  });
-  setTimeout(() => dialogue.classList.remove("typing"), mots.length*130 + 300);
+
+    dialogue.style.setProperty("--typing-progress", `${((i + 1) / mots.length) * 100}%`);
+    i += 1;
+
+    if (i < mots.length){
+      setTimeout(afficherMotSuivant, 140);
+    } else {
+      setTimeout(() => dialogue.classList.remove("typing"), 260);
+    }
+  }
+
+  afficherMotSuivant();
 }
 
 /* =================================================================
