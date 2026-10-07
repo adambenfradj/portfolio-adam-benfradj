@@ -38,9 +38,9 @@ const LOGICIELS = [
    Mesuré automatiquement sur chaque PNG (zone transparente centrale).
    Sert à placer le grésillement pile dans l'écran. */
 const ECRANS = {
-  "minitv_1.png":{x:15.4,y:28.1,w:54.1,h:41.8},
-  "minitv_2.png":{x:15.0,y:15.5,w:69.7,h:53.3},
-  "minitv_3.png":{x:9.5, y:23.2,w:61.5,h:50.4},
+  "minitv_1.png":{x:12.2,y:24.0,w:61.8,h:49.7},
+  "minitv_2.png":{x:4.5,y:12.0,w:84.5,h:60.5},
+  "minitv_3.png":{x:8.6, y:21.0,w:67.2,h:54.5},
   "minitv_4.png":{x:14.2,y:37.8,w:56.3,h:46.2}
 };
 function rectEcran(tvPath){
