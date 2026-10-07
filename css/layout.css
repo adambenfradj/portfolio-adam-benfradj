@@ -62,7 +62,7 @@
 /* Le squelette (personnage principal), fixe. Dimensionné par la HAUTEUR
    pour faire exactement la même taille que le lapin de contact. */
 #perso{position:absolute;left:15cqw;bottom:16cqh;height:27cqh;z-index:30}
-#perso img{height:100%;width:auto;display:block;filter:drop-shadow(0 1cqh .8cqh #0009)}
+#perso img{height:100%;width:auto;display:block;filter:drop-shadow(0 1cqh .8cqh #0009);transform-origin:center;will-change:transform;transition:transform .08s ease-out, filter .12s ease-out}
 
 /* ===== Boîte de dialogue : PLUS PETITE et CENTRÉE ===== */
 #dialogue{
@@ -75,16 +75,22 @@
 }
 #dialogue.on{opacity:1}
 #dialogue .fx{color:var(--rouge)}
-#dialogue .w{opacity:0;animation:motIn .01s linear forwards}  /* mot révélé */
+#dialogue .w{opacity:0;animation:motIn .08s linear forwards}
 @keyframes motIn{to{opacity:1}}
 #dialogue.typing::after{content:"▍";color:var(--rouge);animation:blink 1s steps(2) infinite}
 
 /* Indice « défilez » */
 #cue{position:absolute;left:50%;bottom:11cqh;transform:translateX(-50%);z-index:40;text-align:center;
-  letter-spacing:.3cqw;font-size:2cqw;color:#ddd;transition:opacity .4s}
+  letter-spacing:.3cqw;font-size:2cqw;color:#ddd;transition:opacity .25s ease, transform .25s ease}
 #cue .arrow{color:var(--rouge);font-size:1.8em;animation:bob 1.2s infinite;display:block}
 @keyframes bob{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(.6cqh);opacity:1}}
-#cue.off{opacity:0}
+#cue.is-hiding{animation:cueOut .18s ease forwards}
+@keyframes cueOut{
+  0%{opacity:1;transform:translateX(-50%) scale(1)}
+  35%{opacity:1;transform:translateX(-50%) scale(1.06)}
+  100%{opacity:0;transform:translateX(-52%) scale(.9) translateY(-1.2cqh)}
+}
+#cue.off{opacity:0;pointer-events:none}
 
 /* Barre de progression du scroll */
 #prog{position:absolute;left:8cqw;right:8cqw;bottom:3cqh;height:.7cqh;background:#0008;border:1px solid #000;z-index:55}

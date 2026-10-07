@@ -31,8 +31,8 @@
       <section id="boot" class="ecran">
         <div class="screen screen--boot">
           <img class="boot-logo" src="assets/images/logoafterlife.png" alt="AFTERLIFE" />
-          <button id="btn-start" class="press-start"><span class="a">➯</span> PRESS START</button>
-          <p class="boot-copy">© 2026 Adam Ben Fradj</p>
+          <button id="btn-start" class="press-start"><span class="a">➯</span>PORTFOLIO</button>
+          <p class="boot-copy">© 2026 Adam Ben Fradj </p>
         </div>
       </section>
 
@@ -89,14 +89,24 @@
   <!-- ===== MODALE PROJET (fenêtre Media Player Classic) ===== -->
   <div class="modale" id="modale-projet" hidden>
     <div class="mpc">
-      <div class="mpc-bar"><span id="mpc-fichier">afterlife.wmv</span> — Media Player Classic
-        <button class="mpc-x" data-close>✕</button></div>
+      <div class="mpc-bar">
+        <span class="mpc-bar-main"><span id="mpc-fichier">afterlife.wmv</span> — Media Player Classic</span>
+        <button class="mpc-x" data-close aria-label="Fermer">✕</button>
+      </div>
       <div class="mpc-menu"><span>File</span><span>View</span><span>Play</span><span>Navigate</span><span>Favorites</span><span>Help</span></div>
-      <div class="mpc-video"><img id="mpc-img" src="" alt="" /></div>
-      <div class="mpc-ctrl"><span>⏯</span><div class="mpc-track"><i></i></div><span>00:25 / 01:42</span></div>
+      <div class="mpc-video">
+        <video id="mpc-video" preload="metadata" playsinline muted></video>
+      </div>
+      <div class="mpc-ctrl">
+        <button class="mpc-btn" data-action="toggle" aria-label="Lecture / pause">▶</button>
+        <button class="mpc-btn" data-action="prev" aria-label="Reculer de 5 s">⏮</button>
+        <button class="mpc-btn" data-action="next" aria-label="Avancer de 5 s">⏭</button>
+        <div class="mpc-track-wrap"><input id="mpc-range" type="range" min="0" max="100" step="0.1" value="0" aria-label="Progression vidéo" /></div>
+        <span id="mpc-time">00:00 / 00:00</span>
+      </div>
       <div class="mpc-corps" id="mpc-corps"></div>
     </div>
-    <button class="close-flottant" data-close>✕</button>
+    <button class="close-flottant" data-close aria-label="Fermer">✕</button>
   </div>
 
   <!-- ===== MODALE CONTACT (fenêtre Paint avec coordonnées) ===== -->

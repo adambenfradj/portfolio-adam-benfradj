@@ -20,7 +20,7 @@
 /* Le titre est AU-DESSUS de la TV (bottom:100%) -> le personnage qui
    défile ne « marche » jamais dessus. */
 .tv-projet .tag{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:.8cqh;
-  white-space:nowrap;letter-spacing:.3cqw;font-size:2.2cqw;color:var(--os);text-shadow:.2cqw .2cqw 0 var(--rouge)}
+  white-space:nowrap;letter-spacing:.3cqw;font-size:2.2cqw;color:var(--os);text-shadow:.2cqw .2cqw 0 var(--rouge);font-family:"Wide Latin","Palatino Linotype",serif}
 .tv-projet:hover .tag{color:var(--rouge-clair)}
 
 /* ===== L'écran de la TV : GRÉSILLEMENT, placé DERRIÈRE l'image (z1) =====
@@ -43,10 +43,10 @@
    Même HAUTEUR que le squelette. Il sort / range son flyer selon la
    distance (géré en JS). */
 #contact-perso{position:absolute;bottom:16cqh;height:27cqh;cursor:pointer;z-index:25}
-#contact-perso img{height:100%;width:auto;display:block;filter:drop-shadow(0 1cqh .8cqh #0009);transform:scaleX(-1)}
+#contact-perso img{height:100%;width:auto;display:block;filter:drop-shadow(0 1cqh .8cqh #0009);transform:scaleX(-1);transform-origin:center;will-change:transform;transition:transform .08s ease-out, filter .12s ease-out}
 #contact-perso:hover{filter:brightness(1.1)}
 #contact-perso .tag{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:1cqh;
-  white-space:nowrap;letter-spacing:.3cqw;font-size:2.2cqw;color:var(--os);text-shadow:.2cqw .2cqw 0 var(--rouge)}
+  white-space:nowrap;letter-spacing:.3cqw;font-size:2.2cqw;color:var(--os);text-shadow:.2cqw .2cqw 0 var(--rouge);font-family:"Wide Latin","Palatino Linotype",serif}
 
 @media (max-aspect-ratio:9/16){
   .tv-projet{bottom:21cqh}
