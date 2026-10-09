@@ -271,20 +271,20 @@
   left: 50%;
   bottom: 30cqh;
   transform: translateX(-50%);
-  width: 30cqw;
+  width: 31cqw;
+  min-height: 12cqh;
   z-index: 35;
   background: url("../assets/images/textbox_bg.png") center/100% 100% no-repeat, #0e0a0a;
   border: .3cqw solid #cfcfcf;
   border-radius: .8cqw;
-  padding: 1.4cqh 1.5cqw;
+  padding: 1.1cqh 1.2cqw;
   color: #f4f4f4;
   line-height: 1.45;
-  font-size: .9cqw;
+  font-size: .72cqw;
   font-family: 'Press Start 2P';
   box-shadow: 0 0 0 .16cqw #000, 0 .6cqh 2cqh #000a;
   opacity: 0;
   transition: opacity .35s;
-
   pointer-events: none;
 }
 
@@ -293,7 +293,23 @@
 }
 
 #dialogue .fx {
-  color: var(--rouge)
+  position: relative;
+  display: inline-block;
+  width: 1.2em;
+  height: .2em;
+  background: var(--rouge);
+  box-shadow: 0 0 .7cqw rgba(255, 0, 0, .7);
+  animation: blink 1s steps(2) infinite;
+  flex-shrink: 0;
+  transform: translateY(-.12em);
+  margin-right: .8em;
+}
+
+#dtext {
+  display: inline-block;
+  text-align: left;
+  width: calc(100% - 2.1em);
+  vertical-align: top;
 }
 
 #dialogue .w {
@@ -308,9 +324,7 @@
 }
 
 #dialogue.typing::after {
-  content: "▍";
-  color: var(--rouge);
-  animation: blink 1s steps(2) infinite
+  content: none;
 }
 
 /* Indice « défilez » */

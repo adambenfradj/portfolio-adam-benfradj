@@ -140,17 +140,23 @@ function cacherCue() {
   dialogue.classList.remove("on");
 }
 
+function modaleOuverte() {
+  return !!document.querySelector(".modale:not([hidden])");
+}
+
 // La molette et le tactile font avancer dans le monde
 addEventListener("wheel", e => {
-  
+  if (monde.hidden || modaleOuverte()) return;
   cacherCue();
-  if (monde.hidden) return;
   cible = Math.min(Math.max(cible + e.deltaY, 0), MAX());
 }, { passive: true });
 let ty = 0;
-addEventListener("touchstart", e => { ty = e.touches[0].clientY; }, { passive: true });
+addEventListener("touchstart", e => {
+  if (modaleOuverte()) return;
+  ty = e.touches[0].clientY;
+}, { passive: true });
 addEventListener("touchmove", e => {
-  if (monde.hidden) return;
+  if (monde.hidden || modaleOuverte()) return;
   cacherCue();
   const dy = ty - e.touches[0].clientY; ty = e.touches[0].clientY;
   cible = Math.min(Math.max(cible + dy * 2.4, 0), MAX());
@@ -202,6 +208,8 @@ function taper() {
     s.textContent = mot + (i < mots.length - 1 ? " " : "");
     dtext.appendChild(s);
 
+    const cursorOffset = Math.max(0, dtext.scrollWidth + 10);
+    dialogue.style.setProperty("--cursor-x", `${cursorOffset}px`);
     dialogue.style.setProperty("--typing-progress", `${((i + 1) / mots.length) * 100}%`);
     i += 1;
 
