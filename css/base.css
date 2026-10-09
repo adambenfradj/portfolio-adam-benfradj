@@ -1,5 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Wide+Latin&family=Stardos+Stencil:wght@400;700&display=swap');
 
+@font-face {
+  font-family: 'TAKE A SHOT';
+  src: url('./TAKE\ A\ SHOT\ PERSONAL\ USE.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gothic Joker';
+  src: url('./GothicJoker-gxxGP.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'starcine';
+  src: url('./starcine.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Staroff Demo';
+  src: url('./StaroffDemoRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('./prstartk.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* =================================================================
    base.css — Reset et styles de base communs à toute la page
    ================================================================= */

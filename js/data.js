@@ -49,7 +49,7 @@ function rectEcran(tvPath){
 }
 
 /* ---- Texte de la boîte de dialogue (écrit mot par mot) ---- */
-const DIALOGUE_TXT = "Défilez pour avancer… projets, contact, puis mes logiciels.";
+const DIALOGUE_TXT = "Ah, un visiteur… Défile, je vais te montrer mes projets, comment me joindre et les logiciels avec quoi je crée.";
 
 /* ---- Chargement des projets depuis data/projet.json ---- */
 async function chargerProjets(){

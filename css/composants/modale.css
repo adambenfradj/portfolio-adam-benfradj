@@ -32,7 +32,7 @@
 #mpc-time{min-width:110px;text-align:right;white-space:nowrap}
 .mpc-corps{padding:16px 18px;background:linear-gradient(#171717,#0e0e0e);border-top:1px solid #4a0c11}
 .mpc-corps h3{color:#fff6f6;font-size:clamp(24px,5vw,40px);letter-spacing:1px;line-height:.95;
-  text-shadow:2px 2px 0 rgba(0,0,0,.7), 0 0 12px rgba(255,64,64,.15);font-family:Segoe UI,Arial,sans-serif;font-weight:900}
+  text-shadow:2px 2px 0 rgba(0,0,0,.7), 0 0 12px rgba(255,64,64,.15);font-family:'Staroff Demo','Segoe UI',sans-serif;font-weight:400}
 .mpc-corps .sous{color:#f2e4e4;letter-spacing:1px;margin:2px 0 10px;font-size:13px;font-family:Segoe UI,Arial,sans-serif}
 .mpc-corps .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
 .mpc-corps .meta span{background:linear-gradient(#f8dede,#e9b5b9);color:#111;font-size:11px;padding:2px 8px;border:1px solid #ca7f83}

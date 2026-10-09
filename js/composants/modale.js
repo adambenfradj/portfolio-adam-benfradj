@@ -29,7 +29,7 @@ function majLecteur(){
   }
 
   if (mpcToggle){
-    mpcToggle.textContent = mpcVideo.paused ? "▶" : "⏸";
+    mpcToggle.textContent = mpcVideo.paused ? "\\u25B6" : "\\u23F8";
   }
 }
 
@@ -44,7 +44,7 @@ function preparerLecteur(p){
   mpcVideo.play().catch(() => {});
   mpcVideo.onloadedmetadata = majLecteur;
   mpcVideo.ontimeupdate = majLecteur;
-  mpcVideo.onended = () => { mpcToggle.textContent = "▶"; };
+  mpcVideo.onended = () => { mpcToggle.textContent = "\\u25B6"; };
 }
 
 /* ---- Ouvre la modale PROJET (fenêtre Media Player Classic) ----
@@ -57,7 +57,7 @@ function ouvrirProjet(p){
     <div class="bloc"><h4>RÉSUMÉ</h4><p>${p.court||""}</p></div>
     <div class="bloc"><h4>CE QUE J'AI FAIT</h4><p>${p.long||""}</p></div>
     <div class="bloc"><h4>LOGICIELS</h4><p>${p.logiciels||""}</p></div>
-    ${p.lien ? `<a class="lien" href="${p.lien}" target="_blank" rel="noopener">▶ ${p.lienTexte||"Voir"}</a>` : ""}`;
+    ${p.lien ? `<a class="lien" href="${p.lien}" target="_blank" rel="noopener">\\u25B6 ${p.lienTexte||"Voir"}</a>` : ""}`;
   preparerLecteur(p);
   document.getElementById("modale-projet").hidden = false;
 }

@@ -6,8 +6,7 @@
 /* ===== Une TV-projet ===== */
 /* Positionnée le long de la rue. Hauteur FIXE -> toutes les TV à la
    même taille et au même niveau, peu importe la longueur du titre. */
-.tv-projet{position:absolute;bottom:22cqh;cursor:pointer;transition:transform .18s}
-.tv-projet{transform-origin:center bottom}
+.tv-projet{position:absolute;bottom:22cqh;cursor:pointer;transition:transform .18s;transform-origin:center bottom}
 .tv-projet:hover{transform:scale(1.04)}
 
 /* La boîte qui contient la TV (sa largeur s'ajuste à l'image) */
@@ -17,10 +16,10 @@
 .tv-projet .tv-box>img{position:relative;z-index:2;height:100%;width:auto;display:block;
   filter:drop-shadow(0 1cqh 1cqh #000a)}
 
-/* Le titre est AU-DESSUS de la TV (bottom:100%) -> le personnage qui
-   défile ne « marche » jamais dessus. */
-.tv-projet .tag{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:.8cqh;
-  white-space:nowrap;letter-spacing:.3cqw;font-size:2.2cqw;color:var(--os);text-shadow:.2cqw .2cqw 0 var(--rouge);font-family:"Wide Latin","Palatino Linotype",serif}
+/* Titre grand au-dessus de la TV uniquement */
+.tv-projet .tag{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:.8cqh;z-index:5;
+  white-space:nowrap;letter-spacing:.3cqw;font-size:2.2cqw;color:var(--os);text-shadow:.2cqw .2cqw 0 var(--rouge);
+  font-family:"Wide Latin","Palatino Linotype",serif}
 .tv-projet:hover .tag{color:var(--rouge-clair)}
 
 /* ===== L'écran de la TV : GRÉSILLEMENT, placé DERRIÈRE l'image (z1) =====
