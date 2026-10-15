@@ -62,9 +62,32 @@ function ouvrirProjet(p){
   document.getElementById("modale-projet").hidden = false;
 }
 
+/* ---- Texte « À propos » (écrit mot par mot dans la zone vide de la fenêtre Paint) ---- */
+const APROPOS_TXT = "Je suis Adam Ben Fradj, étudiant en intégration multimédia. Ce qui me caractérise avant tout, c'est ma créativité : j'aime partir d'une idée et la développer jusqu'au bout en lui donnant une direction artistique affirmée. J'ai le goût d'innover, d'explorer de nouvelles approches plutôt que de reprendre ce qui existe déjà. Je travaille sur plusieurs plans — la 3D, l'animation, le graphisme, le jeu vidéo et le montage — et cette polyvalence me permet de m'adapter à chaque projet et de lui donner une identité qui lui est propre.";
+
+let aproposToken = 0;   // invalide l'ancienne animation si on rouvre la modale
+function taperApropos(){
+  const cible = document.getElementById("apropos-text");
+  if (!cible) return;
+  const mon = ++aproposToken;
+  cible.innerHTML = "";
+  const mots = APROPOS_TXT.split(" ");
+  let i = 0;
+  (function suivant(){
+    if (mon !== aproposToken) return;          // une nouvelle ouverture a pris le relais
+    const s = document.createElement("span");
+    s.className = "w";                          // même effet d'apparition que la box d'intro
+    s.textContent = mots[i] + (i < mots.length - 1 ? " " : "");
+    cible.appendChild(s);
+    i += 1;
+    if (i < mots.length) setTimeout(suivant, 75);
+  })();
+}
+
 /* ---- Ouvre la modale CONTACT (fenêtre Paint) ---- */
 function ouvrirContact(){
   document.getElementById("modale-contact").hidden = false;
+  taperApropos();                              // (re)lance l'écriture du texte À propos
 }
 
 /* ---- Ferme toutes les modales ---- */

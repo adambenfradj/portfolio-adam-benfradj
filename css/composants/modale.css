@@ -44,12 +44,47 @@
   font-weight:bold;letter-spacing:1px;text-decoration:none;border:1px solid #7f0d12;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
 .mpc-corps .lien:hover{background:linear-gradient(#ff2d35,#d50f1a)}
 
-/* ===== Fenêtre Paint (contact) ===== */
-.paint{width:min(420px,90vw);max-height:92vh;position:relative;display:flex;align-items:flex-start;justify-content:center}
-.paint>img{width:100%;height:auto;border:2px solid #000;box-shadow:0 0 30px #000;display:block}
-.paint-x{position:absolute;top:12px;right:12px;z-index:2;background:#d12b2b;color:#fff;width:20px;height:18px;
-  border:1px solid #7a0e0e;cursor:pointer;line-height:1;font-size:12px;display:flex;align-items:center;justify-content:center;
-  padding:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
-/* Zones cliquables invisibles posées sur le téléphone / le courriel */
-.paint-liens{position:absolute;left:0;right:0;bottom:0;display:flex;height:9%}
+/* ===== Fenêtre Paint (contact) : l'image + le texte « À propos » dans la zone vide =====
+   Tout est posé en % SUR l'image : ça reste aligné à n'importe quelle taille (mobile inclus).
+   container-type:inline-size -> l'unité cqw = % de la largeur de la fenêtre Paint. */
+.paint{position:relative;line-height:0;container-type:inline-size;
+  /* fenêtre compacte : ~70% de la hauteur en desktop (ne prend plus toute la page) */
+  width:min(92vw, 93.3vh, 1060px);
+  aspect-ratio:1448 / 1086}
+.paint-img{display:block;width:100%;height:100%;object-fit:fill}
+
+/* Texte « À propos » posé dans la zone vide (pas de fond, pas de titre), écrit mot par mot. */
+.paint-apropos{position:absolute;left:56%;top:13%;width:33.5%;height:78%;overflow:hidden;
+  font-family:'Press Start 2P';color:#161616;font-size:1.3cqw;line-height:1.5;text-align:left}
+.paint-apropos .w{opacity:0;animation:motIn .08s linear forwards}
+
+/* Bouton fermer : même style que le X du Media Player Classic (dégradé rouge + croix
+   blanche + biseau), plus un liseré chrome pour bien ressortir sur la bande noire.
+   Ancré par son CENTRE sur la vraie barre de titre (centre ≈ 3,78% de l'image) -> toujours centré. */
+.paint-x{position:absolute;top:3.78%;right:1.4%;transform:translateY(-50%);z-index:3;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;
+  width:2.3cqw;height:2cqw;min-width:22px;min-height:19px;
+  background:linear-gradient(#ef4d4d,#b91318);color:#fff;border:1px solid #7a0e0e;border-radius:0;
+  line-height:1;font-size:clamp(10px,1.1cqw,14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5), 0 0 0 1px #c7c7c7}
+.paint-x:hover{background:linear-gradient(#ff5a5a,#c8141b)}
+.paint-x:active{box-shadow:inset 0 1px 2px rgba(0,0,0,.4), 0 0 0 1px #c7c7c7}
+/* En mobile : X un peu plus petit (on baisse les tailles mini qui dominent sur petit écran) */
+@media (max-aspect-ratio:9/16){
+  .paint-x{min-width:15px;min-height:13px;font-size:clamp(8px,1cqw,11px)}
+}
+
+/* Zones cliquables invisibles posées sur le téléphone / le courriel (bas-gauche) */
+.paint-liens{position:absolute;left:2%;bottom:1%;width:36%;height:3.6%;display:flex}
 .paint-liens a{flex:1}
+
+/* ===== Animation d'ouverture : ALLUMAGE CRT (ligne lumineuse qui s'ouvre) ===== */
+#modale-contact{animation:contactFade .22s ease both}
+#modale-contact .paint{animation:crtOn .5s cubic-bezier(.2,.7,.2,1) both;transform-origin:center}
+@keyframes contactFade{from{opacity:0}to{opacity:1}}
+@keyframes crtOn{
+  0%  {opacity:0;transform:scale(.3,.02);filter:brightness(2.8) saturate(0) contrast(1.25)}
+  26% {opacity:1;transform:scale(1,.02);filter:brightness(2.8) saturate(0) contrast(1.25)}
+  55% {transform:scale(1,1);filter:brightness(1.7) saturate(.5)}
+  100%{opacity:1;transform:scale(1,1);filter:none}
+}

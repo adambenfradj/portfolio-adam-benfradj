@@ -80,6 +80,9 @@
 
           <!-- Barre de progression du scroll -->
           <div id="prog"><i></i></div>
+
+          <!-- Bouton ACCUEIL : en haut au centre, revient à l'écran de démarrage -->
+          <button id="btn-accueil" type="button" aria-label="Revenir à l'accueil">⌂ ACCUEIL</button>
         </div>
       </main>
 
@@ -110,15 +113,23 @@
     </div>
   </div>
 
-  <!-- ===== MODALE CONTACT (fenêtre Paint avec coordonnées) ===== -->
+  <!-- ===== MODALE CONTACT (fenêtre Paint) ===== -->
   <div class="modale" id="modale-contact" hidden>
     <div class="paint">
-      <button class="paint-x" data-close aria-label="Fermer">✕</button>
-      <img src="assets/images/contact_face.png" alt="Contact — Adam Ben Fradj" />
+      <!-- L'image de la fenêtre Paint (photo + zone vide à droite) -->
+      <img class="paint-img" src="assets/images/portrait_2.png" alt="Contact — Adam Ben Fradj" />
+
+      <!-- Le texte « À propos » écrit mot par mot DANS la zone vide (rempli par JS) -->
+      <div class="paint-apropos" id="apropos-text"></div>
+
+      <!-- Zones cliquables invisibles (téléphone / courriel), en bas à gauche -->
       <div class="paint-liens">
         <a href="tel:+15147976782" aria-label="Téléphone"></a>
         <a href="mailto:benfradjadam@gmail.com" aria-label="Courriel"></a>
       </div>
+
+      <!-- Bouton fermer, au coin (reste au coin aussi en mobile) -->
+      <button class="paint-x" data-close aria-label="Fermer">✕</button>
     </div>
   </div>
 

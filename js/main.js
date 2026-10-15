@@ -130,6 +130,7 @@ function animerContact() {
    ================================================================= */
 let cible = 0, camX = 0, vitesse = 0, logOn = false;
 let cueFaded = false;
+let boucleDemarree = false;     // évite de lancer la boucle d'animation 2x
 const largeurTV = () => tvBox.clientWidth || window.innerWidth;
 const MAX = () => largeurTV() * ((contactLeft + 95) / 100);  // longueur du monde
 
@@ -265,7 +266,46 @@ function finNoise() {
   if (noise.hidden) return;
   noise.hidden = true; monde.hidden = false;
   dialogue.classList.add("on"); taper();               // texte mot par mot
-  requestAnimationFrame(boucle);
+  if (!boucleDemarree) { boucleDemarree = true; requestAnimationFrame(boucle); }
+}
+
+/* ---- Bouton ACCUEIL : grésillement de transition puis retour à l'écran de démarrage ---- */
+const btnAccueil = document.getElementById("btn-accueil");
+if (btnAccueil) btnAccueil.addEventListener("click", retourAccueil);
+function retourAccueil() {
+  fermerModales();                                     // ferme les pop-ups ouvertes
+  monde.hidden = true;
+
+  // Remet le défilement et le décor au début
+  cible = 0; camX = 0;
+  objets.style.transform = "translateX(0px)";
+  fond.style.backgroundPositionX = "0px";
+
+  // Réinitialise le texte d'intro pour qu'il se retape à la prochaine entrée
+  taped = false; cueFaded = false;
+  dtext.innerHTML = "";
+  dialogue.classList.remove("on", "typing");
+  cue.classList.remove("off", "is-hiding");
+
+  // Referme la section logiciels
+  logOn = false;
+  logiciels.classList.remove("on");
+  logiciels.setAttribute("aria-hidden", "true");
+  if (waves) waves.pause();
+
+  // Même court grésillement de transition qu'au démarrage, puis retour à l'accueil
+  boot.hidden = true; noise.hidden = false;
+  vid.currentTime = 0; vid.playbackRate = 1.9;
+  const pr = vid.play(); if (pr) pr.catch(finNoiseAccueil);
+  vid.onended = finNoiseAccueil;
+  setTimeout(() => { if (!noise.hidden) finNoiseAccueil(); }, 950);
+}
+
+/* Fin du grésillement (retour accueil) : affiche l'écran de démarrage */
+function finNoiseAccueil() {
+  if (noise.hidden) return;
+  noise.hidden = true;
+  boot.hidden = false;
 }
 
 /* ---- Initialisation ---- */
