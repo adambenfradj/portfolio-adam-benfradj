@@ -30,9 +30,11 @@
       <!-- ===== ÉCRAN 0 : BOOT (logo + PRESS START) ===== -->
       <section id="boot" class="ecran">
         <div class="screen screen--boot">
-          <img class="boot-logo" src="assets/images/logoafterlife.png" alt="AFTERLIFE" />
-          <button id="btn-start" class="press-start"><span class="a">➯</span> PRESS START</button>
-          <p class="boot-copy">© 2026 Adam Ben Fradj</p>
+          <div class="boot-logo-wrap">
+            <img class="boot-logo" src="assets/images/logoafterlife.png" alt="AFTERLIFE" />
+          </div>
+          <button id="btn-start" class="press-start"><span class="a">➯</span>PORTFOLIO</button>
+          <p class="boot-copy">© 2026 Adam Ben Fradj </p>
         </div>
       </section>
 
@@ -58,7 +60,7 @@
             <div id="perso"><img id="perso-img" src="assets/images/debout.png" alt="Personnage" /></div>
 
             <!-- Boîte de dialogue (texte écrit mot par mot) -->
-            <div id="dialogue"><span class="fx">▶</span> <span id="dtext"></span></div>
+            <div id="dialogue"><span class="fx" aria-hidden="true"></span><span id="dtext"></span></div>
             <div id="cue">défilez<br><span class="arrow">▼</span></div>
           </div>
 
@@ -78,6 +80,9 @@
 
           <!-- Barre de progression du scroll -->
           <div id="prog"><i></i></div>
+
+          <!-- Bouton ACCUEIL : en haut au centre, revient à l'écran de démarrage -->
+          <button id="btn-accueil" type="button" aria-label="Revenir à l'accueil">⌂ ACCUEIL</button>
         </div>
       </main>
 
@@ -89,26 +94,43 @@
   <!-- ===== MODALE PROJET (fenêtre Media Player Classic) ===== -->
   <div class="modale" id="modale-projet" hidden>
     <div class="mpc">
-      <div class="mpc-bar"><span id="mpc-fichier">afterlife.wmv</span> — Media Player Classic
-        <button class="mpc-x" data-close>✕</button></div>
+      <div class="mpc-bar">
+        <span class="mpc-bar-main"><span id="mpc-fichier">afterlife.wmv</span> — Media Player Classic</span>
+        <button class="mpc-x" data-close aria-label="Fermer">✕</button>
+      </div>
       <div class="mpc-menu"><span>File</span><span>View</span><span>Play</span><span>Navigate</span><span>Favorites</span><span>Help</span></div>
-      <div class="mpc-video"><img id="mpc-img" src="" alt="" /></div>
-      <div class="mpc-ctrl"><span>⏯</span><div class="mpc-track"><i></i></div><span>00:25 / 01:42</span></div>
+      <div class="mpc-video">
+        <video id="mpc-video" preload="metadata" playsinline muted></video>
+      </div>
+      <div class="mpc-ctrl">
+        <button class="mpc-btn" data-action="toggle" aria-label="Lecture / pause">PLAY</button>
+        <button class="mpc-btn" data-action="prev" aria-label="Reculer de 5 s">-5s</button>
+        <button class="mpc-btn" data-action="next" aria-label="Avancer de 5 s">+5s</button>
+        <div class="mpc-track-wrap"><input id="mpc-range" type="range" min="0" max="100" step="0.1" value="0" aria-label="Progression vidéo" /></div>
+        <span id="mpc-time">00:00 / 00:00</span>
+      </div>
       <div class="mpc-corps" id="mpc-corps"></div>
     </div>
-    <button class="close-flottant" data-close>✕</button>
   </div>
 
-  <!-- ===== MODALE CONTACT (fenêtre Paint avec coordonnées) ===== -->
+  <!-- ===== MODALE CONTACT (fenêtre Paint) ===== -->
   <div class="modale" id="modale-contact" hidden>
     <div class="paint">
-      <img src="assets/images/contact.png" alt="Contact — Adam Ben Fradj" />
+      <!-- L'image de la fenêtre Paint (photo + zone vide à droite) -->
+      <img class="paint-img" src="assets/images/portrait_2.png" alt="Contact — Adam Ben Fradj" />
+
+      <!-- Le texte « À propos » écrit mot par mot DANS la zone vide (rempli par JS) -->
+      <div class="paint-apropos" id="apropos-text"></div>
+
+      <!-- Zones cliquables invisibles (téléphone / courriel), en bas à gauche -->
       <div class="paint-liens">
         <a href="tel:+15147976782" aria-label="Téléphone"></a>
         <a href="mailto:benfradjadam@gmail.com" aria-label="Courriel"></a>
       </div>
+
+      <!-- Bouton fermer, au coin (reste au coin aussi en mobile) -->
+      <button class="paint-x" data-close aria-label="Fermer">✕</button>
     </div>
-    <button class="close-flottant" data-close>✕</button>
   </div>
 
   <p id="hint">molette / glisser pour avancer &nbsp;•&nbsp; ← → dans les logiciels &nbsp;•&nbsp; échap pour fermer</p>
