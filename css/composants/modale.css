@@ -44,23 +44,41 @@
   font-weight:bold;letter-spacing:1px;text-decoration:none;border:1px solid #7f0d12;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
 .mpc-corps .lien:hover{background:linear-gradient(#ff2d35,#d50f1a)}
 
+/* ===== Processus de création (dans la fenêtre projet) ===== */
+.mpc-corps .proc-titre{margin-top:18px;border-top:1px solid #4a0c11;padding-top:14px}
+.mpc-corps .proc-titre h4{color:#ff6a6a}
+.proc-etape{margin:0 0 20px}
+.proc-etape h5{display:flex;align-items:center;gap:8px;color:#fff6f6;font-size:14px;letter-spacing:.6px;
+  text-transform:uppercase;margin-bottom:6px;font-family:Segoe UI,Arial,sans-serif;font-weight:700}
+.proc-num{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 4px;
+  background:linear-gradient(#ef2028,#c40d17);color:#fff;font-size:12px;font-weight:700;border:1px solid #7f0d12;
+  font-family:Segoe UI,Arial,sans-serif;flex:0 0 auto}
+.proc-etape p{color:#e1e1e1;line-height:1.5;font-size:14px;font-family:Segoe UI,Arial,sans-serif;margin-bottom:8px}
+.proc-cite{margin:0 0 10px;padding:10px 14px;border-left:3px solid #d40f16;background:#0000004d;color:#f0dede;
+  font-style:italic;line-height:1.5;font-size:13px;font-family:Segoe UI,Arial,sans-serif}
+.proc-imgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:8px}
+.proc-imgs img{width:100%;height:auto;display:block;border:1px solid #3a3a3a;background:#000;border-radius:2px}
+
 /* ===== Fenêtre Paint (contact) : l'image + le texte « À propos » dans la zone vide =====
    Tout est posé en % SUR l'image : ça reste aligné à n'importe quelle taille (mobile inclus).
-   container-type:inline-size -> l'unité cqw = % de la largeur de la fenêtre Paint. */
+   container-type:inline-size -> l'unité cqw = % de la largeur de la fenêtre Paint,
+   donc le texte garde toujours la même taille relative à l'image. */
 .paint{position:relative;line-height:0;container-type:inline-size;
-  /* fenêtre compacte : ~70% de la hauteur en desktop (ne prend plus toute la page) */
+  /* fenêtre plus compacte : ~70% de la hauteur en desktop (ne prend plus toute la page),
+     garde le ratio de l'image et tient toujours dans l'écran */
   width:min(92vw, 93.3vh, 1060px);
   aspect-ratio:1448 / 1086}
 .paint-img{display:block;width:100%;height:100%;object-fit:fill}
 
-/* Texte « À propos » posé dans la zone vide (pas de fond, pas de titre), écrit mot par mot. */
+/* Texte « À propos » posé dans la zone vide (pas de fond, pas de titre), écrit mot par mot.
+   Décalé vers la droite + plus GROS ; en cqw -> tient toujours (desktop + mobile). */
 .paint-apropos{position:absolute;left:56%;top:13%;width:33.5%;height:78%;overflow:hidden;
   font-family:'Press Start 2P';color:#161616;font-size:1.3cqw;line-height:1.5;text-align:left}
 .paint-apropos .w{opacity:0;animation:motIn .08s linear forwards}
 
 /* Bouton fermer : même style que le X du Media Player Classic (dégradé rouge + croix
    blanche + biseau), plus un liseré chrome pour bien ressortir sur la bande noire.
-   Ancré par son CENTRE sur la vraie barre de titre (centre ≈ 3,78% de l'image) -> toujours centré. */
+   Ancré par son CENTRE sur la bande de titre (≈ 6,55% de l'image) -> toujours centré. */
 .paint-x{position:absolute;top:3.78%;right:1.4%;transform:translateY(-50%);z-index:3;
   display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;
   width:2.3cqw;height:2cqw;min-width:22px;min-height:19px;
@@ -70,13 +88,41 @@
 .paint-x:hover{background:linear-gradient(#ff5a5a,#c8141b)}
 .paint-x:active{box-shadow:inset 0 1px 2px rgba(0,0,0,.4), 0 0 0 1px #c7c7c7}
 /* En mobile : X encore plus petit (on baisse les tailles mini qui dominent sur petit écran) */
-
 @media (max-aspect-ratio:9/16){
   .paint-x{width:6px;height:6px;min-width:6px;min-height:6px;font-size:5px;border-width:.5px}
 }
+
 /* Zones cliquables invisibles posées sur le téléphone / le courriel (bas-gauche) */
 .paint-liens{position:absolute;left:2%;bottom:1%;width:36%;height:3.6%;display:flex}
 .paint-liens a{flex:1}
+
+/* ===== Mini fenêtre CONTACTER (courriel + téléphone, copie en 1 clic) ===== */
+.coord{width:min(440px,92vw);background:linear-gradient(#d9d9d9,#b9b9b9);
+  border:2px solid #5a5a5a;box-shadow:0 0 0 2px #f4f4f4,0 0 0 4px #c7c7c7,0 0 28px rgba(0,0,0,.7);
+  font-family:Segoe UI,Tahoma,Arial,sans-serif;border-radius:2px;
+  animation:crtOn .5s cubic-bezier(.2,.7,.2,1) both;transform-origin:center}
+.coord-bar{background:linear-gradient(#d9141f,#9a0d14);color:#fff7f7;font-size:13px;padding:6px 9px;
+  display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #66080d;letter-spacing:.2px}
+.coord-corps{padding:18px 18px 20px;background:linear-gradient(#171717,#0e0e0e);border-top:1px solid #4a0c11}
+.coord-corps h3{color:#fff6f6;font-size:30px;letter-spacing:1px;line-height:.95;margin-bottom:4px;
+  text-shadow:2px 2px 0 rgba(0,0,0,.7);font-family:'Staroff Demo','Segoe UI',sans-serif;font-weight:400}
+.coord-sous{color:#f2e4e4;font-size:12px;letter-spacing:.4px;margin-bottom:14px;font-family:Segoe UI,Arial,sans-serif}
+.coord-btn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;text-decoration:none;cursor:pointer;
+  margin-bottom:10px;padding:11px 13px;border:1px solid #7f0d12;border-radius:2px;
+  background:linear-gradient(#211010,#140a0a);color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);transition:transform .14s,border-color .14s,background .14s}
+.coord-btn:last-child{margin-bottom:0}
+.coord-btn:hover{border-color:var(--rouge);transform:translateY(-1px);background:linear-gradient(#2b1414,#190b0b)}
+.coord-ico{display:flex;align-items:center;justify-content:center;width:38px;height:38px;flex:0 0 auto;
+  background:linear-gradient(#ef2028,#c40d17);border:1px solid #7f0d12;font-size:18px;color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.coord-txt{display:flex;flex-direction:column;flex:1;min-width:0}
+.coord-txt small{color:#e7b7b7;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.coord-txt b{color:#fff;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.coord-state{flex:0 0 auto;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#f0c7c7;
+  border:1px solid #7f0d12;padding:4px 8px;border-radius:2px;background:#0006}
+.coord-btn.ok{border-color:#2ecc71}
+.coord-btn.ok .coord-state{background:linear-gradient(#2ecc71,#1f9d55);border-color:#1f7a43;color:#fff}
 
 /* ===== Animation d'ouverture : ALLUMAGE CRT (ligne lumineuse qui s'ouvre) ===== */
 #modale-contact{animation:contactFade .22s ease both}
@@ -84,7 +130,7 @@
 @keyframes contactFade{from{opacity:0}to{opacity:1}}
 @keyframes crtOn{
   0%  {opacity:0;transform:scale(.3,.02);filter:brightness(2.8) saturate(0) contrast(1.25)}
-  26% {opacity:1;transform:scale(1,.02);filter:brightness(2.8) saturate(0) contrast(1.25)}
-  55% {transform:scale(1,1);filter:brightness(1.7) saturate(.5)}
+  26% {opacity:1;transform:scale(1,.02);filter:brightness(2.8) saturate(0) contrast(1.25)}  /* fine ligne lumineuse */
+  55% {transform:scale(1,1);filter:brightness(1.7) saturate(.5)}                              /* l'écran s'ouvre */
   100%{opacity:1;transform:scale(1,1);filter:none}
 }

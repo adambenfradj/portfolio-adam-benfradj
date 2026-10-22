@@ -269,9 +269,49 @@ function finNoise() {
   if (!boucleDemarree) { boucleDemarree = true; requestAnimationFrame(boucle); }
 }
 
-/* ---- Bouton ACCUEIL : grésillement de transition puis retour à l'écran de démarrage ---- */
-const btnAccueil = document.getElementById("btn-accueil");
-if (btnAccueil) btnAccueil.addEventListener("click", retourAccueil);
+/* =================================================================
+   MENU BURGER : ouvre/ferme + navigation (ACCUEIL / PROJETS / LOGICIELS / CONTACTER)
+   ================================================================= */
+const burger = document.getElementById("burger");
+const menu = document.getElementById("menu");
+
+function basculerMenu(ouvre) {
+  if (!burger || !menu) return;
+  const open = (ouvre === undefined) ? menu.hidden : ouvre;   // sans argument -> inverse l'état
+  menu.hidden = !open;
+  burger.classList.toggle("open", open);
+  burger.setAttribute("aria-expanded", open ? "true" : "false");
+}
+
+if (burger) burger.addEventListener("click", e => { e.stopPropagation(); basculerMenu(); });
+// Clic en dehors du menu -> le ferme
+addEventListener("click", e => {
+  if (!menu || menu.hidden) return;
+  if (!e.target.closest("#topnav")) basculerMenu(false);
+});
+// Échap -> ferme le menu
+addEventListener("keydown", e => { if (e.key === "Escape") basculerMenu(false); });
+
+/* Ramène à la zone des projets (depuis n'importe où, logiciels inclus) */
+function allerProjets() {
+  if (monde.hidden) return;
+  cacherCue();
+  const cfg = configScene();
+  cible = Math.min(Math.max(largeurTV() * (cfg.pos0 / 100 - 0.40), 0), MAX());
+}
+
+/* Branche chaque entrée du menu sur son action */
+document.querySelectorAll("#menu [data-nav]").forEach(b => {
+  b.addEventListener("click", () => {
+    const quoi = b.getAttribute("data-nav");
+    basculerMenu(false);                               // referme le menu après le choix
+    if (quoi === "accueil") retourAccueil();
+    else if (quoi === "projets") allerProjets();
+    else if (quoi === "logiciels") { if (!monde.hidden) { cacherCue(); cible = MAX(); } }
+    else if (quoi === "contacter") { if (typeof ouvrirCoord === "function") ouvrirCoord(); }
+  });
+});
+
 function retourAccueil() {
   fermerModales();                                     // ferme les pop-ups ouvertes
   monde.hidden = true;

@@ -48,7 +48,7 @@ function preparerLecteur(p){
 }
 
 /* ---- Ouvre la modale PROJET (fenêtre Media Player Classic) ----
-   Remplit le titre, la miniature et les descriptions depuis le projet. */
+   Remplit le titre, la miniature, les descriptions et le processus de création. */
 function ouvrirProjet(p){
   document.getElementById("mpc-fichier").textContent = p.fichier || (p.titre.toLowerCase()+".wmv");
   document.getElementById("mpc-corps").innerHTML = `
@@ -57,6 +57,16 @@ function ouvrirProjet(p){
     <div class="bloc"><h4>RÉSUMÉ</h4><p>${p.court||""}</p></div>
     <div class="bloc"><h4>CE QUE J'AI FAIT</h4><p>${p.long||""}</p></div>
     <div class="bloc"><h4>LOGICIELS</h4><p>${p.logiciels||""}</p></div>
+    ${(p.processus && p.processus.length) ? `
+      <div class="bloc proc-titre"><h4>PROCESSUS DE CRÉATION</h4></div>
+      ${p.processus.map((e, i) => `
+        <div class="proc-etape">
+          <h5><span class="proc-num">${String(i + 1).padStart(2, "0")}</span>${e.titre}</h5>
+          ${e.texte ? `<p>${e.texte}</p>` : ""}
+          ${e.citation ? `<blockquote class="proc-cite">${e.citation}</blockquote>` : ""}
+          ${(e.images && e.images.length) ? `<div class="proc-imgs">${e.images.map(src => `<img src="${src}" alt="${e.titre}" loading="lazy">`).join("")}</div>` : ""}
+        </div>`).join("")}
+    ` : ""}
     ${p.lien ? `<a class="lien" href="${p.lien}" target="_blank" rel="noopener">${p.lienTexte || "Voir l'expérience"}</a>` : ""}`;
   preparerLecteur(p);
   document.getElementById("modale-projet").hidden = false;
@@ -90,6 +100,37 @@ function ouvrirContact(){
   taperApropos();                              // (re)lance l'écriture du texte À propos
 }
 
+/* ---- Ouvre la modale CONTACTER (mini fenêtre courriel + téléphone) ---- */
+function ouvrirCoord(){
+  document.getElementById("modale-coord").hidden = false;
+}
+
+/* ---- Copie dans le presse-papier + petit retour visuel « Copié ! » ---- */
+function fallbackCopier(txt){
+  const ta = document.createElement("textarea");
+  ta.value = txt; ta.style.position = "fixed"; ta.style.top = "-9999px"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand("copy"); } catch (e) {}
+  document.body.removeChild(ta);
+}
+function copier(txt, btn){
+  const fini = () => {
+    if (!btn) return;
+    const et = btn.querySelector(".coord-state");
+    const old = btn.dataset.label || (et ? et.textContent : "");
+    btn.dataset.label = old;
+    btn.classList.add("ok");
+    if (et) et.textContent = "Copié !";
+    clearTimeout(btn._t);
+    btn._t = setTimeout(() => { btn.classList.remove("ok"); if (et) et.textContent = old; }, 1600);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(fini).catch(() => { fallbackCopier(txt); fini(); });
+  } else {
+    fallbackCopier(txt); fini();
+  }
+}
+
 /* ---- Ferme toutes les modales ---- */
 function fermerModales(){
   document.querySelectorAll(".modale").forEach(m => m.hidden = true);
@@ -105,6 +146,10 @@ function initModales(){
   document.querySelectorAll(".modale").forEach(m =>
     m.addEventListener("click", e => { if (e.target === m) fermerModales(); }));
   addEventListener("keydown", e => { if (e.key === "Escape") fermerModales(); });
+
+  // Boutons « copier » (courriel / téléphone) de la fenêtre CONTACTER
+  document.querySelectorAll("[data-copy]").forEach(b =>
+    b.addEventListener("click", e => copier(e.currentTarget.getAttribute("data-copy"), e.currentTarget)));
 
   if (mpcToggle) {
     mpcToggle.addEventListener("click", () => {

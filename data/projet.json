@@ -15,7 +15,7 @@
     "long": "Trois ambiances s'enchaînent — monde lumineux, apparition de l'étoile rouge, monde sombre — et l'image réagit au son en temps réel dans TouchDesigner. J'ai composé la musique dans FL Studio, réalisé l'ambiance avec des objets, monté des séquences dans DaVinci, puis assemblé une expérience interactive : une caméra reliée à mon doigt déforme une structure, une voix au micro change les couleurs.",
     "logiciels": "TouchDesigner, FL Studio, DaVinci Resolve.",
     "lienTexte": "Voir l'expérience",
-    "lien": "https://cmontmorency365.sharepoint.com/sites/TIM-TTP/_layouts/15/stream.aspx?id=%2Fsites%2FTIM-TTP%2FDocuments+partages%2FTTP%2Fprojet_paysages%2F2026%2Fprojet_paysage_2026%2F2026-04-30%2Fadam_ben_fradj.mkv"
+    "lien": "https://vimeo.com/reviews/b6434c20-ed48-45e3-b15e-a008e70c2504/videos/1238419335"
   },
   {
     "id": "afterlife-anim",
@@ -32,8 +32,39 @@
     "court": "Un court-métrage animé qui met en scène la première apparition de mon personnage squelettique, happé par une étoile rouge hypnotique entre un monde lumineux et un monde sombre.",
     "long": "J'ai créé et animé un être qui erre entre deux mondes opposés, projeté par une étoile rouge dans un cycle infini d'illusions. J'ai conçu des éléments Bauhaus dans Illustrator, animés en 2D dans After Effects, puis modélisé et animé mon personnage 3D dans Maya avec son environnement.",
     "logiciels": "Maya, After Effects, Photoshop, Illustrator.",
+    "processus": [
+      {
+        "titre": "L'idée & le synopsis",
+        "texte": "Tout est parti d'une idée : un être qui erre entre deux mondes — un univers lumineux et un monde sombre — attiré par une étoile rouge hypnotique. J'ai d'abord écrit un synopsis pour fixer le récit et le thème.",
+        "citation": "Un être étrange erre entre deux mondes : un univers éblouissant et un monde sombre. Attiré par une étoile rouge hypnotique, il est projeté dans un cycle infini d'illusions et de transitions. Pris entre la lumière et l'ombre, il cherche une vérité insaisissable. L'étoile rouge représente l'appel vers une vérité inaccessible."
+      },
+      {
+        "titre": "La direction artistique & la planche de références",
+        "texte": "J'ai réuni mes références pour définir la direction artistique : l'étoile rouge comme point focal, des formes chromées et agressives pour le monde sombre, des formes fluides et lumineuses (verre, blanc) pour le monde lumineux. La palette se construit autour du noir, du rouge et du gris.",
+        "images": ["assets/images/finalact_refs_1.png", "assets/images/finalact_refs_2.png"]
+      },
+      {
+        "titre": "Le storyboard",
+        "texte": "J'ai découpé l'histoire plan par plan pour planifier les cadrages, les transitions et l'apparition de la lumière et de l'étoile à chaque étape du cycle.",
+        "images": ["assets/images/finalact_storyboard_1.png", "assets/images/finalact_storyboard_2.png"]
+      },
+      {
+        "titre": "La partie 2D — Illustrator & After Effects",
+        "texte": "J'ai conçu des éléments graphiques d'inspiration Bauhaus dans Illustrator, puis je les ai animés en 2D dans After Effects pour créer les séquences lumineuses et les transitions entre les deux mondes."
+      },
+      {
+        "titre": "La partie 3D — Maya",
+        "texte": "J'ai d'abord dessiné mon personnage, puis je l'ai entièrement modélisé, riggé et animé dans Maya. C'est lui qui erre dans l'environnement, happé par l'étoile rouge.",
+        "images": ["assets/images/finalact_maya.png"]
+      },
+      {
+        "titre": "Le montage & la finition — DaVinci Resolve",
+        "texte": "J'ai assemblé toutes les séquences 2D et 3D dans DaVinci Resolve, synchronisé le son et étalonné l'image pour unifier l'ambiance et donner son rythme final au court-métrage.",
+        "images": ["assets/images/finalact_davinci.png"]
+      }
+    ],
     "lienTexte": "Regarder la vidéo",
-    "lien": "https://cmontmorency365-my.sharepoint.com/personal/2187793_cmontmorency_qc_ca/_layouts/15/stream.aspx?id=%2Fpersonal%2F2187793%5Fcmontmorency%5Fqc%5Fca%2FDocuments%2FFichiers%20de%20conversation%20Microsoft%20Teams%2FAFTERLIFE%5FTHE%5FFINAL%5FACT%2Emp4"
+     "lien": "https://vimeo.com/reviews/6a09293e-d47d-474c-a6d3-e9f612ca9755/videos/1238419615"
   },
   {
     "id": "run-rabbit-run",

@@ -81,8 +81,18 @@
           <!-- Barre de progression du scroll -->
           <div id="prog"><i></i></div>
 
-          <!-- Bouton ACCUEIL : en haut au centre, revient à l'écran de démarrage -->
-          <button id="btn-accueil" type="button" aria-label="Revenir à l'accueil">⌂ ACCUEIL</button>
+          <!-- Menu burger (ACCUEIL / PROJETS / LOGICIELS / CONTACTER) : compact, même DA -->
+          <nav id="topnav">
+            <button id="burger" class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+              <span></span><span></span><span></span>
+            </button>
+            <div id="menu" class="menu" hidden>
+              <button class="navbtn" type="button" data-nav="accueil">⌂ ACCUEIL</button>
+              <button class="navbtn" type="button" data-nav="projets">▸ PROJETS</button>
+              <button class="navbtn" type="button" data-nav="logiciels">▤ LOGICIELS</button>
+              <button class="navbtn" type="button" data-nav="contacter">✉ CONTACTER</button>
+            </div>
+          </nav>
         </div>
       </main>
 
@@ -117,7 +127,7 @@
   <div class="modale" id="modale-contact" hidden>
     <div class="paint">
       <!-- L'image de la fenêtre Paint (photo + zone vide à droite) -->
-      <img class="paint-img" src="assets/images/portrait_2.png" alt="Contact — Adam Ben Fradj" />
+      <img class="paint-img" src="assets/images/contact_face.png" alt="Contact — Adam Ben Fradj" />
 
       <!-- Le texte « À propos » écrit mot par mot DANS la zone vide (rempli par JS) -->
       <div class="paint-apropos" id="apropos-text"></div>
@@ -130,6 +140,32 @@
 
       <!-- Bouton fermer, au coin (reste au coin aussi en mobile) -->
       <button class="paint-x" data-close aria-label="Fermer">✕</button>
+    </div>
+  </div>
+
+  <!-- ===== MODALE CONTACTER (mini fenêtre : courriel + téléphone, copie en 1 clic) ===== -->
+  <div class="modale" id="modale-coord" hidden>
+    <div class="coord">
+      <div class="coord-bar">
+        <span>contact.exe</span>
+        <button class="mpc-x" data-close aria-label="Fermer">✕</button>
+      </div>
+      <div class="coord-corps">
+        <h3>Me rejoindre</h3>
+        <p class="coord-sous">Clique sur une carte pour copier.</p>
+
+        <button class="coord-btn" type="button" data-copy="benfradjadam@gmail.com">
+          <span class="coord-ico">✉</span>
+          <span class="coord-txt"><small>Courriel</small><b>benfradjadam@gmail.com</b></span>
+          <span class="coord-state">copier</span>
+        </button>
+
+        <button class="coord-btn" type="button" data-copy="5147976782">
+          <span class="coord-ico">✆</span>
+          <span class="coord-txt"><small>Téléphone</small><b>514 797 6782</b></span>
+          <span class="coord-state">copier</span>
+        </button>
+      </div>
     </div>
   </div>
 
